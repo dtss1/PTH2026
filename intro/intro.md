@@ -6,7 +6,7 @@
 
 > [!NOTE]
 > Voici les différentes résolutions des challenges de la catégorie introduction 
-![Challenges](./images/image.png)
+![Challenges](images/intro.png)
 - [Bienvenue](bvnue.md)
 - [La recrue](larecrue.md)
 --- 
