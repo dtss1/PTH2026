@@ -1,4 +1,3 @@
-![alt text](image.png)
 # PASSE TOH HACK 2026 - Write Ups
 
 ---
@@ -7,7 +6,7 @@
 
 > [!NOTE]
 > Voici les différentes résolutions des challenges de la catégorie Moyenne
-
+![Medium](images/challengesmedium.png)
 - [Le repaire - Partie 3](repaire3.md)
 - [La Traque - Partie 2](traque2.md)
 - [Survivant Crescendo](survivant.md)
