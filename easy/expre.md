@@ -34,7 +34,7 @@ Signification :
 - `(x)` -> caractère x 
 - `\}` -> fin du flag avec `}`
 
-En reconstruisant la chaîne caractère par caractère et en testant si le regex match on trouve le flag : 
+En reconstruisant la chaîne caractère par caractère et en testant si le regex match nous trouvons le flag : 
 
 ![flag](images/flagreg.png)
 
