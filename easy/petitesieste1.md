@@ -51,8 +51,13 @@ for ($vbVfRDvzBTIBM = 0; $vbVfRDvzBTIBM -lt 100; $vbVfRDvzBTIBM = $vbVfRDvzBTIBM
     Start-Sleep -Seconds 8
 }
 ```
+La ligne utile pour cette première partie est celle-ci  :
 
-Nous avons donc retrouvé le nom initial du malware et sommes capable de reconstruire le flag : 
+```
+Rename-Item -Path ($kZEhiHPWvPyI_path + "\Backstab64.exe") -NewName "Guide_Utilisateur_v03.pdf.exe" # renomme le binaire malveillant initial en un faux "document pdf" `
+```
+
+Elle indique le nom initial du malware et permet de reconstruire le flag : 
 
 ```
 FLAG{backstab64.exe}
