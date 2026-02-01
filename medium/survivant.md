@@ -201,6 +201,8 @@ i32.store16 offset=24 align=1
 
 WebAssembly écrit les valeurs multi-octets en mémoire en little-endian.
 
+Exemple : `i32.store offset=1` écrit 4 octets en little-endian, donc la valeur est à convertir en bytes et placée dans cipher[1:5].
+
 Pour reconstruire correctement `cipher`, il faut donc convertir chaque constante en bytes little-endian :
 
 ![little](images/little.png)
