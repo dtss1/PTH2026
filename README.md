@@ -1,7 +1,7 @@
 # PASSE TOH HACK 2026 - Write Ups
 
 ---
-
+![finalscore](finalscore.png)
 ## 📚 Sommaire
 
 > [!NOTE]
@@ -17,4 +17,4 @@
 
 ## Liste des rédacteurs :
 
-- *@dtss*
+- *@dtss aka joueur5138*
