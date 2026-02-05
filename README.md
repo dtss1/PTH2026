@@ -12,7 +12,6 @@
 - [Medium](medium/medium.md)
 - [Hard](hard/hard.md) 
 - [Very Hard](veryhard/veryhard.md) 
-- [Insane - First Blood](insane/insane.md) 
 
 --- 
 
