@@ -16,6 +16,7 @@
 - [Le repaire - Partie 2](repaire2.md)
 - [Archive manquante](archivemanq.md)
 - [Compétition sur la toile](comptoile.md)
+- [Echo de L'Abîme - Décodager Sonar Morse](sonmorse.md)
 - [Expressionnisme](expre.md)
 - [Petite Sieste - Partie 1](petitesieste1.md)
 - [Petite Sieste - Partie 2](petitesieste2.md)
