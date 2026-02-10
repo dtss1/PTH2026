@@ -1,4 +1,4 @@
-# PASSE TOH HACK 2026 - Write Ups
+# Passe ton hack d’abord 2026  - Write Ups
 
 ---
 ![finalscore](finalscore.png)
