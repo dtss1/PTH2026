@@ -638,8 +638,9 @@ if __name__ == "__main__":
 
 On obtient le flag :
 
-![flag](images/flag)
+![flag](images/flag.png)
 
 ```
 FLAG{I_pr3feR-sP0on_btw}
+
 ```
