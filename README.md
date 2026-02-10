@@ -17,4 +17,4 @@
 
 ## Liste des rédacteurs :
 
-- *@dtss aka joueur5138*
+- *@dtss alias @joueur5138*
