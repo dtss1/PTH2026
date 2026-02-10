@@ -195,7 +195,7 @@ Le serveur effectue alors la requête suivante en interne :
 GET http://localhost:3002/questions?qnumber=0&answer=t
 ```
 
-Le fichier questions.json est renvoyé et affiché dans la page :
+Le fichier `questions.json` est renvoyé et affiché dans la page :
 
 ![flag](images/flagcyber.png)
 
@@ -203,4 +203,5 @@ Il contient le flag :
 
 ```
 FLAG{V0us_n'êt3s_P4s_Supp0sé_V01r_C3C1}
+
 ```
