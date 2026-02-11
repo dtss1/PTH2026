@@ -9,6 +9,7 @@
 
 ![veryhard](images/veryhard.png)
 - [Cuitochette](cuito.md)
+- [Session Sécurisée Hostile](session.md)
 --- 
 
 ## Liste des rédacteurs :
