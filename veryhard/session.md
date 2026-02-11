@@ -218,7 +218,7 @@ Une fois le fichier `.proto` défini, le compilateur `protoc` génère automatiq
 
 Dans ce challenge, les fichiers `poskaship_pb2` et `poskaship_pb2_grpc` sont justement les modules générés à partir du fichier .proto original.
 
-Le module `pokaship_bp2` contient un object DESCRIPTOR qui décrit tout le schéma (messages, champs, enums, services). Les descripteurs sont la base de la réflexion Protobuf :
+Le module `pokaship_bp2` contient un object `DESCRIPTOR` qui décrit tout le schéma (messages, champs, enums, services). Les descripteurs sont la base de la réflexion Protobuf :
 
 ![file](images/filedesc.png)
 
